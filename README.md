@@ -4,6 +4,8 @@ Confluence Markdown Bridge is built for teams stuck with the on-prem Confluence 
 
 Instead of fighting the editor, you write and maintain your pages in Markdown, convert them to Confluence Wiki markup, and import them through `Insert > Markup`.
 
+If you do not want an intermediate `.wiki` file, you can also copy the generated Confluence Wiki markup directly to the clipboard from VS Code.
+
 For existing pages, you can export the Confluence page as `.doc`, convert that export back to Markdown, make your changes locally, and convert the result back to Confluence Wiki markup for re-import.
 
 The goal is simple: keep your real editing workflow in Markdown and use Confluence only as the publishing target.
@@ -30,10 +32,11 @@ No more editing large pages directly in the Confluence wiki editor.
 
 1. Write your page in Markdown.
 2. In VS Code, run `Markdown to Confluence Wiki: Convert File` or `Markdown to Confluence Wiki: Copy to Clipboard`.
-3. If you exported to a file, open the generated `.wiki` file.
-4. In Confluence, use `Insert > Markup`.
-5. Select `Confluence Wiki`.
-6. Paste the generated markup.
+3. If you used `Convert File`, open the generated `.wiki` file and copy its contents.
+4. If you used `Copy to Clipboard`, the markup is already in your clipboard.
+5. In Confluence, use `Insert > Markup`.
+6. Select `Confluence Wiki`.
+7. Paste the generated markup.
 
 ### 2. Existing page: Confluence export back to Markdown
 
@@ -56,6 +59,8 @@ The `.doc` input is expected to be a Confluence export, not a generic Word docum
 - `Markdown to Confluence Wiki: Copy to Clipboard`
 - `Confluence DOC to Markdown: Convert Current File`
 - `Confluence DOC to Markdown: Convert File`
+
+`Markdown to Confluence Wiki: Copy to Clipboard` is the fastest path when you want to paste directly into Confluence without keeping a `.wiki` export file.
 
 Legacy `Markdown to DOC` command paths still exist in the codebase for regression purposes, but they are not the main documented workflow of this extension.
 
