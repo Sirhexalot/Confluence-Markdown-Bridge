@@ -1,12 +1,26 @@
 {
-  "name": "md2doc-vscode",
-  "displayName": "MD to DOC",
-  "description": "Convert Markdown files to Word documents for Confluence and legacy workflows.",
-  "version": "0.0.1",
-  "publisher": "adrian-local",
-  "license": "UNLICENSED",
+  "name": "confluence-markdown-bridge",
+  "displayName": "Confluence Markdown Bridge",
+  "description": "Write Confluence pages in Markdown, convert Markdown to Confluence Wiki markup, and turn Confluence DOC exports back into Markdown.",
+  "version": "0.0.2",
+  "publisher": "Sirhexalot",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "icon": "images/icon.png",
+  "homepage": "https://github.com/Sirhexalot/Markdown-to-Confluence-Hosted",
+  "bugs": {
+    "url": "https://github.com/Sirhexalot/Markdown-to-Confluence-Hosted/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sirhexalot/Markdown-to-Confluence-Hosted.git"
+  },
+  "galleryBanner": {
+    "color": "#123a63",
+    "theme": "dark"
+  },
   "files": [
     "dist/**",
+    "images/**",
     "README.md",
     "LICENSE.txt",
     "package.json"
@@ -16,6 +30,16 @@
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "confluence",
+    "markdown",
+    "wiki",
+    "on-prem",
+    "import",
+    "export",
+    "doc",
+    "documentation"
   ],
   "activationEvents": [
     "onCommand:md2doc.convertCurrentFile",
@@ -29,23 +53,23 @@
     "commands": [
       {
         "command": "md2doc.convertCurrentFile",
-        "title": "MD to DOC: Convert Current File"
+        "title": "Markdown to DOC: Convert Current File"
       },
       {
         "command": "md2doc.convertFile",
-        "title": "MD to DOC: Convert File"
+        "title": "Markdown to DOC: Convert File"
       },
       {
         "command": "md2doc.convertMarkdownToWikiFile",
-        "title": "MD to Wiki Markup: Convert File"
+        "title": "Markdown to Confluence Wiki: Convert File"
       },
       {
         "command": "md2doc.convertWordCurrentFile",
-        "title": "DOC to MD: Convert Current File"
+        "title": "Confluence DOC to Markdown: Convert Current File"
       },
       {
         "command": "md2doc.convertWordFile",
-        "title": "DOC to MD: Convert File"
+        "title": "Confluence DOC to Markdown: Convert File"
       }
     ],
     "menus": {
@@ -63,7 +87,7 @@
       ]
     },
     "configuration": {
-      "title": "MD to DOC",
+      "title": "Confluence Markdown Bridge",
       "properties": {
         "md2doc.pandocPath": {
           "type": "string",

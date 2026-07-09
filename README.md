@@ -1,79 +1,84 @@
-# MD to DOC
+# Confluence Markdown Bridge
 
-VS Code extension for the current Confluence workflow: Confluence `.doc` export to Markdown and Markdown to Confluence `.wiki`.
+Confluence Markdown Bridge is built for teams stuck with the on-prem Confluence wiki editor.
 
-## Current workflow
+Instead of fighting the editor, you write and maintain your pages in Markdown, convert them to Confluence Wiki markup, and import them through `Insert > Markup`.
 
-- Converts Confluence `.doc` exports back to Markdown.
-- Converts Markdown to Confluence-style `.wiki` markup.
-- Supports the current file and selected files in the Explorer.
-- The incoming `.doc` files are always Confluence exports and are handled as MHTML/HTML-based documents.
+For existing pages, you can export the Confluence page as `.doc`, convert that export back to Markdown, make your changes locally, and convert the result back to Confluence Wiki markup for re-import.
+
+The goal is simple: keep your real editing workflow in Markdown and use Confluence only as the publishing target.
+
+## Why this extension exists
+
+The on-prem Confluence editor can be slow, awkward, and frustrating for structured content.
+
+This extension gives you a cleaner workflow:
+
+- Write new pages in Markdown.
+- Convert Markdown to Confluence Wiki markup.
+- Paste the result into Confluence via `Insert > Markup`.
+- Export existing Confluence pages as `.doc`.
+- Convert those `.doc` exports back to Markdown.
+- Edit the page comfortably in VS Code.
+- Convert the updated Markdown back to Confluence Wiki markup and import it again.
+
+No more editing large pages directly in the Confluence wiki editor.
+
+## Core workflows
+
+### 1. New page: Markdown to Confluence
+
+1. Write your page in Markdown.
+2. In VS Code, run `Markdown to Confluence Wiki: Convert File`.
+3. Open the generated `.wiki` file.
+4. In Confluence, use `Insert > Markup`.
+5. Select `Confluence Wiki`.
+6. Paste the generated markup.
+
+### 2. Existing page: Confluence export back to Markdown
+
+1. Export the existing Confluence page as `.doc`.
+2. In VS Code, run `Confluence DOC to Markdown: Convert File`.
+3. Edit the generated Markdown file.
+4. Run `Markdown to Confluence Wiki: Convert File`.
+5. Re-import the generated `.wiki` file through `Insert > Markup`.
+
+## What it converts
+
+- Confluence `.doc` export -> Markdown
+- Markdown -> Confluence Wiki markup
+
+The `.doc` input is expected to be a Confluence export, not a generic Word document. These files are typically MHTML/HTML-backed exports and are handled accordingly.
 
 ## Commands
 
-- `MD to Wiki Markup: Convert File`
-- `DOC to MD: Convert Current File`
-- `DOC to MD: Convert File`
+- `Markdown to Confluence Wiki: Convert File`
+- `Confluence DOC to Markdown: Convert Current File`
+- `Confluence DOC to Markdown: Convert File`
 
-The codebase still contains legacy `md2doc` code paths, but they are no longer part of the documented primary workflow.
+Legacy `Markdown to DOC` command paths still exist in the codebase for regression purposes, but they are not the main documented workflow of this extension.
 
-## Dependencies
+## Requirements
 
-### npm package dependencies
-
-This extension currently has no direct runtime `dependencies` in `package.json`.
-
-Direct `devDependencies`:
-
-- `@types/node`
-- `@types/vscode`
-- `@vscode/vsce`
-- `markdownlint`
-- `typescript`
-
-### External tools
-
-- `pandoc` is required for Confluence `.doc` export -> Markdown conversion.
-- `.wiki` export does not require external tools.
-- No additional external converter is required for the current documented workflow.
-
-## Setup on a clean system
-
-`npm install` does not install `pandoc`. It only installs the Node packages from `package.json`.
-
-For development on a clean system:
-
-1. Install Node.js and `pnpm`.
-2. Run `pnpm install`.
-3. Install `pandoc` separately if you want to use `DOC to MD`.
-4. Run `pnpm build`.
-5. Optionally run `pnpm package` to build the VSIX.
-
-For using the built extension in VS Code:
-
-- `MD to Wiki Markup` works without `pandoc`.
-- `DOC to MD` needs `pandoc` installed and reachable via `PATH`, or configured via `md2doc.pandocPath`.
-- The `.doc` input is expected to be a Confluence export, not a generic Word `.doc`.
+- `pandoc` is required for Confluence `.doc` export -> Markdown
+- Markdown -> Confluence Wiki does not require `pandoc`
 
 ## Settings
 
 - `md2doc.pandocPath`: path to `pandoc`
 - `md2doc.libreOfficePath`: optional explicit path to LibreOffice / `soffice`
-- `md2doc.exportFormat`: `docx` or `doc`
+- `md2doc.exportFormat`: legacy `docx` or `doc` setting
 - `md2doc.outputDirectory`: optional export directory
 - `md2doc.openAfterExport`: open the exported file after conversion
 
-## CLI regression entrypoints
+## Notes for Confluence on-prem
 
-- `pnpm test:md2doc -- <input.md> [--format doc|docx] [--output-dir <dir>] [--pandoc <path>] [--libreoffice <path>]`
-- `pnpm test:doc2md -- <input.doc|input.docx> [--output-dir <dir>] [--pandoc <path>] [--libreoffice <path>]`
-- `pnpm test:md2wiki -- <input.md> [--output-dir <dir>]`
+- Markdown works well for headings, lists, and basic formatting.
+- Tables are more reliable when converted to Confluence Wiki markup before import.
+- Empty table cells are emitted in a Confluence-friendly way for on-prem import workflows.
 
-`test:md2doc` is kept only as a legacy regression entrypoint.
+## Summary
 
-## Notes
+Confluence Markdown Bridge lets you treat Markdown as your source of truth and Confluence on-prem as the final destination.
 
-- If VS Code cannot find `pandoc` via `PATH`, set `md2doc.pandocPath` to the full executable path.
-- In this workflow, the incoming `.doc` is always a Confluence export, not a normal binary Word `.doc`.
-- These files are imported via their embedded HTML/MHTML content.
-- The repository still contains legacy `md2doc` code paths, but they are not part of the current documented setup.
+Write in Markdown. Convert when needed. Import into Confluence. Avoid the editor pain.
